@@ -20,5 +20,6 @@ Template.newPoll.events = {
         'No'
       ]
     });
+    Router.go('/');
   }
 };
