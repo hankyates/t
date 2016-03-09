@@ -10,7 +10,7 @@ Router.map(function() {
     name: 'home',
     path: '/',
     waitOn: function () {
-      return Meteor.subscribe('polls');
+      return Meteor.subscribe('homePage');
     },
     action: function () {
       this.render('homePage');

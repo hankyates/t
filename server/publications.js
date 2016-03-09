@@ -15,3 +15,11 @@ Meteor.publish('pollDetails', function (pollId) {
     Votes.find({pollId: pollId})
   ];
 });
+
+Meteor.publish('homePage', function () {
+  check(arguments, [Match.Any]);
+  return [
+    Polls.find({}),
+    Votes.find({}),
+  ];
+});
