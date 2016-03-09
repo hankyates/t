@@ -22,6 +22,12 @@ Router.map(function() {
     path: '/poll/create',
     action: function () {
       this.render('newPoll');
+    },
+    onAfterAction: function() {
+      var newPollEl = document.getElementById('newPoll');
+      if (newPollEl) {
+        React.render(React.createElement(NewPoll), newPollEl);
+      }
     }
   });
 
