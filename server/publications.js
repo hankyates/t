@@ -13,5 +13,5 @@ Meteor.publish('pollDetails', function (pollId) {
 	return [
 		Polls.find({_id: pollId}),
 		Votes.find({pollId: pollId})
-	] // <-- something missing here?
+	];
 });
