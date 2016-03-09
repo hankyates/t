@@ -3,17 +3,17 @@
     <div class="row">
       <div class="col-sm-12 text-center">
         <div class="poll-list-item-title">
-          {{title}}
+          <a href="/poll/{{id}}">{{title}}</a>
         </div>
       </div>
       <div class="col-sm-12">
         Votes so far: {{votes.length}}
       </div>
       <div class="col-sm-12 text-center">
-        {{#if participated}}
-          <a href="/poll/{{id}}" class="btn btn-default disabled">Already Voted: TODO</a>
+        {{#if participated id}}
+          <a href="/poll/{{id}}" class="btn btn-default disabled">You Voted: TODO</a>
         {{else}}
-          <a href="/poll/{{id}}" class="btn btn-default" data-action="view-poll">View Poll</a>
+          <a href="/poll/{{id}}" class="btn btn-default" data-action="view-poll">Cast your Vote!</a>
         {{/if}}
       </div>
     </div>
@@ -43,6 +43,7 @@
             </div>
           </div>
         </div>
+        {{#if participated}}
         <div class="row poll-details-results">
           <div class="col-sm-12">
             Here are the results so far:
@@ -56,7 +57,8 @@
             </div>
           </div>
         </div>
-        {{#if currentUser }}
+        {{/if}}
+        {{#if canVote _id}}
         <div class="row poll-details-ballet">
           <div class="col-sm-12">
             Cast Your Vote:
@@ -67,9 +69,15 @@
             </div>
           </div>
         </div>
-        {{else}}
+        {{/if}}
+        {{#unless currentUser}}
         <div class="row">
           Whoops! Please log in or create an account to vote.
+        </div>
+        {{/unless}}
+        {{#if participated _id}}
+        <div class="row">
+          You've cast your vote as TODO.
         </div>
         {{/if}}
       </div>

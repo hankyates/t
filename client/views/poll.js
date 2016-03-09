@@ -18,10 +18,10 @@ Template.pollDetails.events = {
   }
 };
 
-function participated() {
+function participated(pollId) {
   var userId = Meteor.userId();
   // If the current user is anon they couldn't/shoundn't have participated.
-  return userId ? !!Votes.findOne({userId}) : false;
+  return userId ? !!Votes.findOne({userId, pollId}) : false;
 }
 
 Template.pollDetails.helpers({
@@ -29,6 +29,7 @@ Template.pollDetails.helpers({
     var pollOption = this;
     return Votes.find({option: pollOption.valueOf()}).count();
   },
+  canVote: (pollId) => !!Meteor.user() && !participated(pollId),
   participated
 });
 
