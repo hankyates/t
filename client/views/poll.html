@@ -11,7 +11,7 @@
       </div>
       <div class="col-sm-12 text-center">
         {{#if participated id}}
-          <a href="/poll/{{id}}" class="btn btn-default disabled">You Voted: TODO</a>
+          <a href="/poll/{{id}}" class="btn btn-default btn-success">You Voted: {{currentUsersVote id}}</a>
         {{else}}
           <a href="/poll/{{id}}" class="btn btn-default" data-action="view-poll">Cast your Vote!</a>
         {{/if}}
@@ -77,7 +77,7 @@
         {{/unless}}
         {{#if participated _id}}
         <div class="row">
-          You've cast your vote as TODO.
+          You've cast your vote as {{currentUsersVote _id}}.
         </div>
         {{/if}}
       </div>

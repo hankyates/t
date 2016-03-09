@@ -18,10 +18,16 @@ Template.pollDetails.events = {
   }
 };
 
+function currentUsersVote(pollId) {
+  var userId = Meteor.userId();
+  var vote = Votes.findOne({userId, pollId});
+  return (vote && vote.option) || '';
+}
+
 function participated(pollId) {
   var userId = Meteor.userId();
   // If the current user is anon they couldn't/shoundn't have participated.
-  return userId ? !!Votes.findOne({userId, pollId}) : false;
+  return userId ? !!currentUsersVote(pollId) : false;
 }
 
 Template.pollDetails.helpers({
@@ -30,9 +36,11 @@ Template.pollDetails.helpers({
     return Votes.find({option: pollOption.valueOf()}).count();
   },
   canVote: (pollId) => !!Meteor.user() && !participated(pollId),
+  currentUsersVote,
   participated
 });
 
 Template.pollListItem.helpers({
-  participated
+  participated,
+  currentUsersVote
 });

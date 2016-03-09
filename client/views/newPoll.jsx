@@ -50,7 +50,7 @@ NewPoll = React.createClass({
           <textarea onChange={e => this.setState({description: e.target.value})} placeholder="Description of what we're voting on"></textarea>
         </div>
         <div className="row">
-          {options.map((v, i) => <input type="text" onChange={e => this.choiceChange(e, i)} defaultValue={v}/>)}
+          {options.map((v, i) => <input key={v+i} type="text" onChange={e => this.choiceChange(e, i)} defaultValue={v}/>)}
           <button className="btn btn-default" onClick={this.addChoice}>Add a choice</button>
         </div>
         <div className="row">
