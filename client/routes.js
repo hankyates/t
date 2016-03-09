@@ -16,6 +16,15 @@ Router.map(function() {
       this.render('homePage');
     }
   });
+
+  this.route('/poll/create', {
+    name: 'newPoll',
+    path: '/poll/create',
+    action: function () {
+      this.render('newPoll');
+    }
+  });
+
   this.route('/poll/:_id', {
     name: 'pollDetails',
     path: '/poll/:_id',

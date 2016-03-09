@@ -1,32 +1,24 @@
-Template.newPoll.created = function(){
-  var template = this;
-  template.creatingPoll = new ReactiveVar(false);
-};
-
 Template.newPoll.events = {
-  'click button[data-action="open-new-poll-input"]': function(event){
-    event.preventDefault();
-    var template = Template.instance();
-    template.creatingPoll.set(true);
-  },
-  'click button[data-action="cancel-new-poll"]': function(event){
-    event.preventDefault();
-    var template = Template.instance();
-    template.creatingPoll.set(false);
-  },
   'click button[data-action="create-new-poll"]': function(event){
     event.preventDefault();
+    var userId = Meteor.userId();
+    if (!userId) {
+      Session.set('modalMessage', 'Please log in to post a comment.');
+      Modal.show('messageModal');
+      return;
+    }
     var template = Template.instance();
     Polls.insert({
-      userId: Meteor.userId(),
+      userId,
       title: template.$('#newPollTitle').val(),
       description: template.$('#newPollDescription').val(),
+      active: true,
+      expires: moment().add(1, 'days').valueOf(),
       timestamp: moment().valueOf(),
       options: [
         'Yes',
         'No'
       ]
     });
-    template.creatingPoll.set(false);
   }
 };

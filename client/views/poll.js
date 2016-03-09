@@ -3,7 +3,8 @@ Template.pollDetails.events = {
     event.preventDefault();
     var userId = Meteor.userId();
     if (!userId) {
-      Meteor.publish('Not logged In');
+      Session.set("modalMessage", "Please log in to post a comment.");
+      Modal.show('messageModal');
       return;
     }
     var poll = Template.currentData();

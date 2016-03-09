@@ -1,23 +1,14 @@
-Polls.allow({
+var permissions = {
   insert: function(userId, doc){
-    return true;
+    return !!userId;
   },
   update: function(userId, doc, fields, modifier){
-    return true;
+    return doc.userId === userId;
   },
   remove: function(userId, doc){
-    return true;
+    return doc.userId === userId;
   }
-});
+};
 
-Votes.allow({
-  insert: function(userId, doc){
-    return true;
-  },
-  update: function(userId, doc, fields, modifier){
-    return true;
-  },
-  remove: function(userId, doc){
-    return true;
-  }
-});
+Polls.allow(permissions);
+Votes.allow(permissions);
