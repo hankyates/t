@@ -24,23 +24,40 @@ function currentUsersVote(pollId) {
   return (vote && vote.option) || '';
 }
 
-function participated(pollId) {
+function participated(poll) {
+  var {_id} = poll;
   var userId = Meteor.userId();
   // If the current user is anon they couldn't/shoundn't have participated.
-  return userId ? !!currentUsersVote(pollId) : false;
+  return userId ? !!currentUsersVote(_id) : false;
 }
+
+function expired(poll) {
+  return (poll.expires - Date.now()) <= 0;
+}
+
+function not(f) {
+  return function () {
+    return !f.apply(this, arguments);
+  }
+}
+
+var userCanVote = (poll) => !!Meteor.user() && !participated(poll)
 
 Template.pollDetails.helpers({
   'voteCountForOption': function(){
     var pollOption = this;
     return Votes.find({option: pollOption.valueOf()}).count();
   },
-  canVote: (pollId) => !!Meteor.user() && !participated(pollId),
+  userCanVote,
+  votingEnabled: (poll) => _.every([not(expired), userCanVote], f => f(poll)),
+  showResults: (poll) => _.any([expired, participated], f => f(poll)),
   currentUsersVote,
+  expired,
   participated
 });
 
 Template.pollListItem.helpers({
   participated,
+  expired,
   currentUsersVote
 });

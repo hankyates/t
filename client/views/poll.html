@@ -3,17 +3,17 @@
     <div class="row">
       <div class="col-sm-12 text-center">
         <div class="poll-list-item-title">
-          <a href="/poll/{{id}}">{{title}}</a>
+          <a href="/poll/{{_id}}">{{title}}</a>
         </div>
       </div>
       <div class="col-sm-12">
         Votes so far: {{votes.length}}
       </div>
       <div class="col-sm-12 text-center">
-        {{#if participated id}}
-          <a href="/poll/{{id}}" class="btn btn-default btn-success">You Voted: {{currentUsersVote id}}</a>
+        {{#if participated this}}
+          <a href="/poll/{{_id}}" class="btn btn-default btn-success">You Voted: {{currentUsersVote _id}}</a>
         {{else}}
-          <a href="/poll/{{id}}" class="btn btn-default" data-action="view-poll">Cast your Vote!</a>
+          <a href="/poll/{{_id}}" class="btn btn-default" data-action="view-poll">Cast your Vote!</a>
         {{/if}}
       </div>
     </div>
@@ -43,10 +43,10 @@
             </div>
           </div>
         </div>
-        {{#if participated _id}}
+        {{#if showResults this}}
         <div class="row poll-details-results">
           <div class="col-sm-12">
-            Here are the results so far:
+            Here are the results:
             <div class="text-center">
               {{#each options}}
               <div class="poll-details-result-option">
@@ -58,7 +58,7 @@
           </div>
         </div>
         {{/if}}
-        {{#if canVote _id}}
+        {{#if votingEnabled this}}
         <div class="row poll-details-ballet">
           <div class="col-sm-12">
             Cast Your Vote:
@@ -75,7 +75,7 @@
           Whoops! Please log in or create an account to vote.
         </div>
         {{/unless}}
-        {{#if participated _id}}
+        {{#if participated this}}
         <div class="row">
           You've cast your vote as {{currentUsersVote _id}}.
         </div>

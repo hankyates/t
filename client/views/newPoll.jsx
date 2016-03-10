@@ -30,7 +30,6 @@ NewPoll = React.createClass({
       userId,
       title,
       description,
-      active: true,
       expires,
       timestamp: moment().valueOf(),
       options
