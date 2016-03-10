@@ -5,19 +5,10 @@ Router.configure({
   progressDelay: 200
 });
 
-function unmountReact() {
-  var contentEl = document.getElementById('content');
-  if (contentEl) {
-    ReactDOM.unmountComponentAtNode(contentEl);
-  }
-  this.next();
-}
-
 Router.map(function() {
   this.route('/', {
     name: 'home',
     path: '/',
-    onBeforeAction: unmountReact,
     waitOn: function () {
       return Meteor.subscribe('homePage');
     },
@@ -30,10 +21,12 @@ Router.map(function() {
     name: 'newPoll',
     path: '/poll/create',
     action: function () {
-      this.render();
-      var contentEl = document.getElementById('content');
-      if (contentEl) {
-        ReactDOM.render(React.createElement(NewPoll), contentEl);
+      this.render('newPoll');
+      Template.newPoll.rendered = function() {
+        var contentEl = document.getElementById('newPoll');
+        if (contentEl) {
+          ReactDOM.render(React.createElement(NewPoll), contentEl);
+        }
       }
     }
   });
@@ -41,7 +34,6 @@ Router.map(function() {
   this.route('/poll/:_id', {
     name: 'pollDetails',
     path: '/poll/:_id',
-    onBeforeAction: unmountReact,
     waitOn: function () {
       return Meteor.subscribe('pollDetails', this.params._id);
     },
