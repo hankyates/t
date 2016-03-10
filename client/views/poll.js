@@ -15,6 +15,7 @@ Template.pollDetails.events = {
       timestamp: moment().valueOf(),
       option: pollOption.valueOf()
     });
+    Router.go('/');
   }
 };
 
@@ -57,6 +58,7 @@ Template.pollDetails.helpers({
 });
 
 Template.pollListItem.helpers({
+  when: poll => moment(poll.expires).format('YYYY-MM-DD HH:mm'),
   participated,
   expired,
   currentUsersVote

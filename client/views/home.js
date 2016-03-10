@@ -1,3 +1,9 @@
+function score(poll, votes, participated) {
+  var now = Date.now();
+  var left = (poll.expires - now) / (100 * 60); // Convert to minutes.
+  return Math.pow((10000 / left), 10) + (15 * votes) + (100 * participated);
+}
+
 function voteMap(vote) {
   var {option, _id, userId} = vote;
   return {
@@ -9,21 +15,25 @@ function voteMap(vote) {
 
 function pollMap(poll) {
   var {title, expires, description, _id} = poll;
+  var votes = Votes.find({pollId: _id}).map(voteMap);
+  var p = Template.pollDetails.__helpers.get('participated');
+  var participated = p(poll) ? 0 : 1;
   return {
+    score: score(poll, votes.length, participated),
     title,
     expires,
     description,
     _id,
-    votes: Votes.find({pollId: _id}).map(voteMap)
+    votes
   };
 }
 
 function polls() {
   var now = Date.now();
-  return Polls
+  return _.sortBy(Polls
     .find()
     .map(pollMap)
-    .filter(p => (p.expires - now) > 0);
+    .filter(p => (p.expires - now) > 0), 'score').reverse();
 }
 
 Template.homePage.helpers({
