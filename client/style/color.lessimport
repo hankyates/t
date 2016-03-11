@@ -2,3 +2,4 @@
 @dark-blue: #2e4051;;
 @medium-blue-gray: #7f8c8d;
 @light-blue-gray: #bdc3c7;
+@bright-red: #d9534f;

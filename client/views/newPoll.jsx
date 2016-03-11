@@ -59,28 +59,30 @@ NewPoll = React.createClass({
 
   render: function() {
     var {options, expiresDate, expiresTime} = this.state;
-    return <div className="text-center">
-      <div className="new-poll-dialogue">
-        <h4>Create New Poll</h4>
-        <div className="row">
+    return <div className="container">
+      <div className="new-poll-dialogue col-sm-6 col-sm-offset-3">
+        <h4 className="bg-primary">Create New Poll</h4>
+        <div className="row poll-title">
           <input onChange={e => this.setState({title: e.target.value})} type="text" placeholder="Poll Title"/>
         </div>
-        <div className="row">
+        <div className="row poll-description">
           <textarea onChange={e => this.setState({description: e.target.value})} placeholder="Description of what we're voting on"></textarea>
         </div>
-        <div className="row">
+        <div className="row poll-options">
+          <h4 className="bg-grey">Voting Choices</h4>
           {options.map((v, i) => <input type="text" onChange={e => this.choiceChange(e, i)} defaultValue={v}/>)}
           <button className="btn btn-default" onClick={this.addChoice}>Add a choice</button>
         </div>
-        <div className="row">
+        <div className="row poll-expiration">
+          <h4 className="bg-grey">Voting Expiration</h4>
           <label htmlFor="expires">Poll Expires On:</label>
           <input name="expires" onChange={this.dateChange} type="date" defaultValue={expiresDate.format(DATE_FORMAT)}/>
           <label htmlFor="time">at</label>
           <input name="time" onChange={this.timeChange} type="time" defaultValue={expiresTime.format(TIME_FORMAT)}/>
         </div>
-        <div className="row">
-          <a href="/" className="btn btn-default">Cancel</a>
+        <div className="row text-center poll-controls">
           <button className="btn btn-success" onClick={this.createPollHandler}>Create Poll</button>
+          <a href="/" className="btn btn-default">Cancel</a>
         </div>
       </div>
     </div>;

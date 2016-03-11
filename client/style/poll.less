@@ -7,12 +7,53 @@
   margin-bottom: 10px;
 }
 
+.bg-grey {
+  background-color: lighten(@light-blue-gray, 5%);
+}
+
 .new-poll-dialogue{
-  width: 100%;
   background: white;
   border-radius: 3px;
   border: 1px solid @medium-blue-gray;
   padding: 5px;
+  h4 {
+    padding: 5px;
+    border-radius: 3px;
+    margin-top: 0;
+  }
+  .row {
+    margin: 10px 0;
+    &.poll-title {
+      input {
+        width: 100%;
+      }
+    }
+    &.poll-description {
+      textarea {
+        width: 100%;
+      }
+    }
+    &.poll-expiration {
+      input {
+        margin: 0 5px;
+      }
+    }
+    &.poll-options {
+      & > input, button {
+        margin: 5px 0;
+        display: block;
+      }
+    }
+    &.poll-controls {
+      .btn {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.user-vote {
+  color: @bright-red;
 }
 
 //POLL DETAILS
