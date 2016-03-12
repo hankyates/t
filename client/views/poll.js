@@ -32,7 +32,7 @@ function participated(poll) {
   return userId ? !!currentUsersVote(_id) : false;
 }
 
-function expired(poll) {
+function expired(poll = this) {
   return (poll.expires - Date.now()) <= 0;
 }
 

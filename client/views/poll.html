@@ -1,5 +1,5 @@
 <template name="pollListItem">
-  <div class="poll-list-item">
+  <div class="poll-list-item {{#if expired}}expired{{/if}}">
     <div class="row">
       <div class="col-sm-12 text-center">
         <div class="poll-list-item-title">
@@ -9,8 +9,17 @@
       <div class="col-sm-12 text-center">
         Votes so far: {{votes.length}}
       </div>
+      {{#if expired}}
       <div class="col-sm-12 text-center">
-        {{#if participated this}}
+        Voting closed
+      </div>
+      {{else}}
+      <div class="col-sm-12 text-center">
+        Voting closes {{getTimeAgoFormat expires}}
+      </div>
+      {{/if}}
+      <div class="col-sm-12 text-center">
+        {{#if participated}}
           <a href="/poll/{{_id}}" class="btn btn-default btn-success">You Voted: {{currentUsersVote _id}}</a>
         {{else}}
           <a href="/poll/{{_id}}" class="btn btn-default" data-action="view-poll">Cast your Vote!</a>
@@ -32,7 +41,7 @@
           </div>
           <div class="col-sm-4 text-right">
             <div class="poll-details-creation-date">
-              <i class="fa fa-calendar"></i> {{getTimeAgoFormat timestamp}}
+              <i class="fa fa-calendar">{{getTimeAgoFormat timestamp}}</i>
             </div>
           </div>
         </div>
@@ -75,7 +84,7 @@
           Whoops! Please log in or create an account to vote.
         </div>
         {{/unless}}
-        {{#if participated this}}
+        {{#if participated}}
         <div class="row bg-success">
           You've cast your vote as <span class='user-vote'>{{currentUsersVote _id}}</span>.
         </div>

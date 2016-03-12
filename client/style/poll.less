@@ -127,7 +127,15 @@
   margin-top: 5px;
   min-height: 52px;
   vertical-align: middle;
-  button{
+  & > .row {
+    & > div {
+      margin: 3px 0;
+    }
+  }
+  &.expired {
+    .bg-grey;
+  }
+  button {
     margin-top: 2px;
   }
 }

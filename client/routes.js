@@ -5,15 +5,24 @@ Router.configure({
   progressDelay: 200
 });
 
+
 Router.map(function() {
   this.route('/', {
     name: 'home',
     path: '/',
     waitOn: function () {
-      return Meteor.subscribe('homePage');
+      if (!this.from && !this.size) {
+        this.from = new ReactiveVar(0);
+        this.size = 1;
+      }
+      return Meteor.subscribe('homePage', this.size, this.from.get());
     },
     action: function () {
-      this.render('homePage');
+      this.render('homePage', {
+        data: function() {
+          return {size: this.size, from: this.from};
+        }
+      });
     }
   });
 

@@ -1,6 +1,6 @@
 Polls.allow({
   insert: function(userId, doc){
-    return !!userId;
+    return !!userId && !!doc.title;
   },
   update: function(userId, doc, fields, modifier){
     return doc.userId === userId;

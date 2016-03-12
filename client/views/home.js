@@ -1,7 +1,7 @@
-function score(poll, votes, participated) {
+function score(poll, votes, participated = this) {
   var now = Date.now();
   var left = (poll.expires - now) / (100 * 60); // Convert to minutes.
-  return Math.pow((10000 / left), 10) + (15 * votes) + (100 * participated);
+  return (100000 / left) + (15 * votes) + (100 * participated);
 }
 
 function voteMap(vote) {
@@ -29,7 +29,7 @@ function pollMap(poll) {
 }
 
 function polls() {
-  var now = Date.now();
+  var now = moment().subtract(1, 'days').valueOf();
   return _.sortBy(Polls
     .find()
     .map(pollMap)
@@ -39,3 +39,9 @@ function polls() {
 Template.homePage.helpers({
   polls
 });
+
+Template.homePage.events = {
+  'click button[data-action="load-more"]': function(event){
+    this.from.set(this.size + this.from.get());
+  }
+};

@@ -22,6 +22,11 @@ NewPoll = React.createClass({
       return;
     }
     var {title, description, options, expiresDate, expiresTime} = this.state;
+    if (title.length < 1) {
+      Session.set('modalMessage', 'Please enter a title for the Poll!');
+      Modal.show('messageModal');
+      return;
+    }
     var expires = moment(
       `${expiresDate.format('YYYY-MM-DD')} ${expiresTime.format('HH:mm')}`,
       'YYYY-MM-DD HH:mm'
