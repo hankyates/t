@@ -70,7 +70,7 @@ NewPoll = React.createClass({
         </div>
         <div className="row poll-options">
           <h4 className="bg-grey">Voting Choices</h4>
-          {options.map((v, i) => <input type="text" onChange={e => this.choiceChange(e, i)} defaultValue={v}/>)}
+          {options.map((v, i) => <input type="text" onChange={e => this.choiceChange(e, i)} className="slide-in" defaultValue={v}/>)}
           <button className="btn btn-default" onClick={this.addChoice}>Add a choice</button>
         </div>
         <div className="row poll-expiration">
