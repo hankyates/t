@@ -17,7 +17,7 @@ NewPoll = React.createClass({
   createPollHandler: function() {
     var userId = Meteor.userId();
     if (!userId) {
-      Session.set('modalMessage', 'Please log in to post a comment.');
+      Session.set('modalMessage', 'Please log in to post a poll.');
       Modal.show('messageModal');
       return;
     }
