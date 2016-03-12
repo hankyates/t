@@ -1,4 +1,4 @@
-var permissions = {
+Polls.allow({
   insert: function(userId, doc){
     return !!userId;
   },
@@ -8,7 +8,17 @@ var permissions = {
   remove: function(userId, doc){
     return doc.userId === userId;
   }
-};
+});
 
-Polls.allow(permissions);
-Votes.allow(permissions);
+Votes.allow({
+  insert: function(userId, doc){
+    var canVote = Votes.find({userId, pollId: doc.pollId}).count() < 1;
+    return !!userId && canVote;
+  },
+  update: function(userId, doc, fields, modifier){
+    return doc.userId === userId;
+  },
+  remove: function(userId, doc){
+    return doc.userId === userId;
+  }
+});

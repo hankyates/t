@@ -39,10 +39,10 @@ function expired(poll) {
 function not(f) {
   return function () {
     return !f.apply(this, arguments);
-  }
+  };
 }
 
-var userCanVote = (poll) => !!Meteor.user() && !participated(poll)
+var userCanVote = (poll) => !!Meteor.user() && !participated(poll);
 
 Template.pollDetails.helpers({
   'voteCountForOption': function(){

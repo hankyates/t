@@ -27,7 +27,7 @@ Router.map(function() {
         if (contentEl) {
           ReactDOM.render(React.createElement(NewPoll), contentEl);
         }
-      }
+      };
     }
   });
 
