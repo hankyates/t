@@ -12,9 +12,10 @@ Router.map(function() {
     path: '/',
     waitOn: function () {
       if (!this.from && !this.size) {
-        this.from = new ReactiveVar(0);
+        this.from =  new ReactiveVar(Session.get('from') || 0);
         this.size = 1;
       }
+      Session.set('from', this.from.get());
       return Meteor.subscribe('homePage', this.size, this.from.get());
     },
     action: function () {

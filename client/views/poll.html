@@ -19,7 +19,7 @@
       </div>
       {{/if}}
       <div class="col-sm-12 text-center">
-        {{#if participated}}
+        {{#if participated this}}
           <a href="/poll/{{_id}}" class="btn btn-default btn-success">You Voted: {{currentUsersVote _id}}</a>
         {{else}}
           <a href="/poll/{{_id}}" class="btn btn-default" data-action="view-poll">Cast your Vote!</a>
@@ -84,7 +84,7 @@
           Whoops! Please log in or create an account to vote.
         </div>
         {{/unless}}
-        {{#if participated}}
+        {{#if participated this}}
         <div class="row bg-success">
           You've cast your vote as <span class='user-vote'>{{currentUsersVote _id}}</span>.
         </div>
